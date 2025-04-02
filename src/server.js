@@ -8,14 +8,6 @@ const jsonHandler = require('./jsonResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-/* const urlStruct = {
-  '/': htmlHandler.getIndex,
-  '/style.css': htmlHandler.getCSS,
-  '/getUsers': jsonHandler.getUsers,
-  '/updateUser': jsonHandler.updateUser,
-  notFound: jsonHandler.notFound,
-}; */
-
 const parseBody = (request, response, handler) => {
   const body = [];
 
@@ -48,8 +40,10 @@ const handleGet = (request, response, parsedUrl) => {
     htmlHandler.getCSS(request, response);
   } else if (parsedUrl.pathname === '/getUsers') {
     jsonHandler.getUsers(request, response);
-  } else {
+  } else if (parsedUrl.pathname === '/') {
     htmlHandler.getIndex(request, response);
+  } else {
+    jsonHandler.notFound(request, response);
   }
 };
 
